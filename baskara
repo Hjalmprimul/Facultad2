@@ -1,0 +1,20 @@
+public static void main(String[] args) {
+    Scanner sc = new Scanner (System.in);
+    double x1,x2,a, b, c; 
+    System.out.println("Ingrese el valor de a");
+    a = sc.nextInt();
+    System.out.println("Ingrese el valor de b");
+    b = sc.nextInt();
+    System.out.println("Ingrese el valor de c");
+    c = sc.nextInt();
+    if ((Math.pow(b,2)-4*a*c)>0){
+    x1 = (-b+((double)Math.sqrt(Math.pow(b,2)-4*a*c)))/(2*a);
+    x2 = (-b-((double)Math.sqrt(Math.pow(b,2)-4*a*c)))/(2*a);
+    
+    }
+    else{
+        
+    }
+        System.out.println(x1);
+        System.out.println(x2);
+    }
