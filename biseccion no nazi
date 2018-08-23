@@ -1,0 +1,31 @@
+Scanner sc = new Scanner (System.in);
+        double error;
+        System.out.println("Ingrese el error impuesto");
+        error=sc.nextDouble();
+        
+        System.out.println(biseccion((1.0),(2.0),error));
+        
+    }
+    public static double biseccion (double A,double B,double error){
+        double x;
+        x = (A+B)/2;
+        System.out.println(x);
+        if((Math.abs(f(x))>error)){
+            
+        if (f(A)*f(x)<0){
+          x= biseccion(A,x,error);
+        } 
+        else {
+            x = biseccion(x,B,error);
+        }
+    }
+        System.out.println(x);
+        return x;
+    }
+    
+    public static double f(double x){
+        double jeje=(Math.pow(x,3))-(2*x)-1;
+        System.out.println("valor funcion xd"+jeje);
+        return jeje;
+        
+    }
