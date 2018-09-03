@@ -1,0 +1,39 @@
+ public static void main (String[] args){
+        Scanner sc = new Scanner (System.in);
+        int fila,columna;
+        int[][] enteros;
+        System.out.println("Ingrese la cantidad de filas");
+        fila = sc.nextInt();
+        System.out.println("Ingrese la cantidad de columnas");
+        columna = sc.nextInt();
+        enteros = new int [fila][columna];
+        CargarMatriz(enteros,fila,columna);
+        System.out.println("Esta es la matriz resultante");
+        MostrarMatriz(enteros,fila,columna);
+        
+    }
+    public static void CargarMatriz(int[][] matriz, int fila, int colum) {
+        Scanner sc = new Scanner(System.in);
+        for (int i = 0; i < fila; i++) {
+            for (int j = 0; j < colum; j++) {
+                System.out.println("Ingrese el numero en la fila " + i + " y columna " + j);
+                matriz[i][j] = sc.nextInt();
+            }
+        }
+    }
+    public static void MostrarMatriz (int[][] enteros,int fila,int columna){
+        for (int i = 0; i < fila; i++) {
+            if(i%2==0){
+            for (int j = 0; j < columna; j++) {
+               System.out.print(enteros[i][j]+" "); 
+              }
+            }
+            else{
+                for (int j = enteros.length; j > 0; j--) {
+                    System.out.print(enteros[i][j-1]+" ");
+                }
+            }
+            System.out.println("");
+        }
+    }
+}
