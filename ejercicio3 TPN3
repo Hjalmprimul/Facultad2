@@ -1,0 +1,106 @@
+ public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        boolean flag = false;
+        int[][] matriz1, matriz2;
+        int fila1, fila2, colum1, colum2;
+        System.out.println("Ingrese cantidad de filas matriz 1");
+        fila1 = sc.nextInt();
+        System.out.println("Ingrese cantidad de columnas matriz 1");
+        colum1 = sc.nextInt();
+        matriz1 = new int[fila1][colum1];
+        System.out.println("Ingrese cantidad de filas matriz 2");
+        fila2 = sc.nextInt();
+        System.out.println("Ingrese cantidad de columnas matriz 2");
+        colum2 = sc.nextInt();
+        matriz2 = new int[fila2][colum2];
+        do {
+            switch (menu()) {
+                default:
+                    System.out.println("Ingrese un numero del menu.");
+                    break;
+                case 0:
+                    flag = true;
+                    break;
+                case 1:
+                    System.out.println("MATRIZ 1:");
+                    CargarMatriz(matriz1, fila1, colum1);
+                    System.out.println("MATRIZ 2:");
+                    CargarMatriz(matriz2, fila2, colum2);
+                    break;
+                case 2:
+                    if ((fila1 == fila2) && (colum1 == colum2)) {
+                        int[][] matriz3 = new int[fila1][colum1];
+                        matriz3 = SumaMatrices(matriz1, matriz2);
+                        System.out.println("Esta es la matriz que resulta de la suma");
+                        MostrarMatriz(matriz3, fila1, colum1);
+                    } else {
+                        System.out.println("Se a producido un error al efectuar la suma de las matrices:");
+                        System.out.println("Puede que las matrices no sean del mismo orden");
+                    }
+                    break;
+                case 3:
+                    if(colum1 == fila2){
+                        int[][] matriz3 = new int[fila1][colum2];
+                        matriz3 = ProductoMatrices(matriz1,matriz2);
+                        System.out.println("Esta es la matriz que resulta del producto");
+                        MostrarMatriz(matriz3,fila1,colum2);
+                    }
+                    else{
+                        System.out.println("Se a producido un error al efectuar el producto de las matrices:");
+                        System.out.println("Puede que las columnas de la primer matriz sean distintas que las filas de la segunda matriz");
+                    }
+                    break;
+            }
+        } while (!flag);
+    }
+
+    public static int menu() {
+        Scanner sc = new Scanner(System.in);
+        int elecMenu;
+        System.out.println("MENU:");
+        System.out.println("     1. Cargar las matrices");
+        System.out.println("     2. Realizar la suma de las matrices");
+        System.out.println("     3. Realizar el producto de las matrices");
+        System.out.println("     0. Cerrar");
+        elecMenu = sc.nextInt();
+        return elecMenu;
+    }
+
+    public static void CargarMatriz(int[][] matriz, int fila, int colum) {
+        Scanner sc = new Scanner(System.in);
+        for (int i = 0; i < fila; i++) {
+            for (int j = 0; j < colum; j++) {
+                System.out.println("Ingrese el numero en la fila " + i + " y columna " + j);
+                matriz[i][j] = sc.nextInt();
+            }
+        }
+    }
+
+    public static int[][] SumaMatrices(int[][] matriz1, int[][] matriz2) {
+        int[][] matriz3 = new int[matriz1.length][matriz1[0].length];
+        for (int i = 0; i < matriz1.length; i++) {
+            for (int j = 0; j < matriz1[0].length; j++) {
+                matriz3[i][j] = matriz1[i][j] + matriz2[i][j];
+            }
+        }
+        return matriz3;
+    }
+
+    public static void MostrarMatriz(int[][] enteros, int fila, int colum) {
+        for (int i = 0; i < fila; i++) {
+            for (int j = 0; j < colum; j++) {
+                System.out.print(enteros[i][j] + " ");
+            }
+            System.out.println("");
+        }
+    }
+    public static int[][] ProductoMatrices(int[][] matriz1, int[][] matriz2){
+        int[][] matriz3 = new int [matriz1.length][matriz2[0].length];
+       
+        
+        
+        
+        
+        return matriz3;
+    }
+}
