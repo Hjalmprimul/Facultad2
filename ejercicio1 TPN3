@@ -1,0 +1,78 @@
+ public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int[][] enteros;
+        int colum, fila;
+        boolean segun = false;
+        System.out.println("Ingrese la cantidad de Filas");
+        fila = sc.nextInt();
+        System.out.println("Ingrese la cantidad de Columnas");
+        colum = sc.nextInt();
+        enteros = new int[fila][colum];
+
+        do {
+            switch (menu()) {
+                case 0:
+                    segun = true;
+                    break;
+                case 1:
+                    System.out.println("Ingrese el numero de Fila");
+                    CargaFilaEsima(enteros, colum, sc.nextInt());
+                    break;
+                case 2:
+                    CargarMatrizComp(enteros, fila, colum);
+                    break;
+                case 3:
+                    System.out.println("Ingrese el numero de Columna");
+                    MostrarColumnaEsima(enteros, fila, sc.nextInt());
+                    break;
+                case 4:
+                    MostrarMatrizCompleta(enteros, colum, fila);
+                    break;
+                default:
+                    System.out.println("No existe ese numero de opcion GATURRO...");
+                    System.out.println("Ingresa uno de los numeros del menu RETARDED.");
+            }
+        } while (!segun);
+
+    }
+
+    public static int menu() {
+        Scanner sc = new Scanner(System.in);
+        int elecMenu;
+        System.out.println("Menu:");
+        System.out.println("     1- Cargar la fila i-esima de la matriz.");
+        System.out.println("     2- Cargar la matriz completa.");
+        System.out.println("     3- Mostrar la columna i-esima de la matriz.");
+        System.out.println("     4- Mostrar la matriz completa.");
+        System.out.println("     0- Salir.");
+        elecMenu = sc.nextInt();
+        return elecMenu;
+    }
+
+    public static void CargaFilaEsima(int[][] enteros, int colum, int num) {
+        Scanner sc = new Scanner(System.in);
+        for (int i = 0; i < colum; i++) {
+            System.out.println("Ingrese el numero de la fila " + num + " y la columna " + i);
+            enteros[num][i] = sc.nextInt();
+        }
+    }
+
+    public static void CargarMatrizComp(int[][] enteros, int fila, int colum) {
+        for (int i = 0; i < fila; i++) {
+            CargaFilaEsima(enteros, colum, i);
+        }
+    }
+
+    public static void MostrarColumnaEsima(int[][] enteros, int fila, int num) {
+        Scanner sc = new Scanner(System.in);
+        for (int i = 0; i < fila; i++) {
+            System.out.println("Valor de la fila " + i + " y la columna " + num + ": " + enteros[i][num]);
+        }
+    }
+
+    public static void MostrarMatrizCompleta(int enteros[][], int colum, int fila) {
+        for (int i = 0; i < colum; i++) {
+            MostrarColumnaEsima(enteros, fila, i);
+        }
+    }
+}
