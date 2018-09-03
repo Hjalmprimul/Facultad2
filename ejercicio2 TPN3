@@ -2,6 +2,7 @@ public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         int[][] enteros;
         int fila, colum;
+        int x;
         boolean bandera = false;
 
         System.out.println("Ingrese el numero de filas");
@@ -24,20 +25,50 @@ public static void main(String[] args) {
                     MostrarMatriz(enteros, fila, colum);
                     break;
                 case 2:
-                    if (fila == colum) {
+                    if (Cuadrada(fila, colum)) {
                         System.out.println("La matriz es cuadrada");
                     } else {
                         System.out.println("La matriz no es cuadrada");
+                    }
+                    break;
+                case 3:
+                    if (Cuadrada(fila, colum) && VerifTrianSup(enteros, fila, colum)) {
+                        System.out.println("La matriz es Triangulas Superior");
+                    } else {
+                        System.out.println("La matriz no es Triangular Superior");
+                    }
+                    break;
+                case 4:
+                    if (Cuadrada(fila, colum) && VerifTrianSup(enteros, fila, colum) && VerifTrianInf(enteros, fila, colum)) {
+                        System.out.println("La matriz es diagonal");
+                    } else {
+                        System.out.println("La matriz no es diagonal");
                     }
                     break;
                 case 5:
                     int esc;
                     System.out.println("Ingrese el escalar a multiplicar");
                     esc = sc.nextInt();
-                    ProductoEscalar (enteros,esc);
+                    ProductoEscalar(enteros, esc);
                     break;
-                    
+                case 6:
+                    int[][] trans = new int[colum][fila];
+                    trans = Transponer(enteros, fila, colum);
+                    System.out.println("Esta es la matriz transpuesta: ");
+                    MostrarMatriz(trans, colum, fila);
+                    break;
+                case 7:
+                    System.out.println("Ingrese la Fila a sumar");
+                    x = sc.nextInt()-1;
+                    System.out.println("La suma de los elementos de la fila "+x+" es: "+SumaFila(enteros,x,colum));
+                    break;
+                case 8:
+                    System.out.println("Ingrese la Columna a Sumar");
+                    x = sc.nextInt()-1;
+                    System.out.println("La suma de los elementos de la Columna "+x+" es: "+SumaColum(enteros,fila,x));
+                    break;
             }
+           
         } while (!bandera);
     }
 
@@ -85,4 +116,67 @@ public static void main(String[] args) {
         }
     }
 
+    public static boolean Cuadrada(int fila, int colum) {
+        boolean esCuadrada = false;
+        if (fila == colum) {
+            esCuadrada = true;
+        }
+        return esCuadrada;
+    }
+
+    public static boolean VerifTrianSup(int[][] enteros, int fila, int colum) {
+        int x = 0;
+        boolean esTriSup = false;
+        for (int i = 0; i < fila; i++) {
+            for (int j = 0; j < colum; j++) {
+                if ((i > j) && (enteros[i][j] != 0)) {
+                    x++;
+                }
+            }
+        }
+        if (x == 0) {
+            esTriSup = true;
+        }
+        return esTriSup;
+    }
+
+    public static boolean VerifTrianInf(int[][] enteros, int fila, int colum) {
+        boolean esTriInf = false;
+        int x = 0;
+        for (int i = 0; i < fila; i++) {
+            for (int j = 0; j < colum; j++) {
+                if ((i < j) && (enteros[i][j] != 0)) {
+                    x++;
+                }
+            }
+        }
+        if (x == 0) {
+            esTriInf = true;
+        }
+        return esTriInf;
+    }
+
+    public static int[][] Transponer(int[][] enteros, int fila, int colum) {
+        int[][] transpuesta = new int[colum][fila];
+        for (int i = 0; i < fila; i++) {
+            for (int j = 0; j < colum; j++) {
+                transpuesta[j][i] = enteros[i][j];
+            }
+        }
+        return transpuesta;
+    }
+    public static int SumaFila (int[][] enteros,int x,int colum){
+        int suma = 0;
+        for (int i = 0; i < colum; i++) {
+            suma = suma + enteros [x][colum-1];
+        }
+        return suma;
+    }
+    public static int SumaColum (int[][] enteros, int fila, int x){
+        int suma = 0;
+        for (int i = 0; i < fila; i++) {
+            suma = suma + enteros[fila-1][x];
+        }
+        return suma;
+    }
 }
