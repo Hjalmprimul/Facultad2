@@ -1,0 +1,88 @@
+public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int[][] enteros;
+        int fila, colum;
+        boolean bandera = false;
+
+        System.out.println("Ingrese el numero de filas");
+        fila = sc.nextInt();
+        System.out.println("Ingrese la cantidad de columnas");
+        colum = sc.nextInt();
+
+        enteros = new int[fila][colum];
+        CargaMatriz(enteros);
+        do {
+            switch (menu()) {
+                default:
+                    System.out.println("Ingresa un numero del menu AUTISTA");
+                    System.out.println("              TRY AGAIN           ");
+                    break;
+                case 0:
+                    bandera = true;
+                    break;
+                case 1:
+                    MostrarMatriz(enteros, fila, colum);
+                    break;
+                case 2:
+                    if (fila == colum) {
+                        System.out.println("La matriz es cuadrada");
+                    } else {
+                        System.out.println("La matriz no es cuadrada");
+                    }
+                    break;
+                case 5:
+                    int esc;
+                    System.out.println("Ingrese el escalar a multiplicar");
+                    esc = sc.nextInt();
+                    ProductoEscalar (enteros,esc);
+                    break;
+                    
+            }
+        } while (!bandera);
+    }
+
+    public static int menu() {
+        Scanner sc = new Scanner(System.in);
+        int elecMenu;
+        System.out.println("Menu:");
+        System.out.println("     0-Cerrar.");
+        System.out.println("     1-Mostrar todos los elementos de la matriz.");
+        System.out.println("     2-verificar si la matriz es cuadrada.");
+        System.out.println("     3-Verificar si la matriz es Triangular Superior.");
+        System.out.println("     4-Verificar si la matriz es Matriz Diagonal.");
+        System.out.println("     5-Producto por un escalar.");
+        System.out.println("     6-Transponer la matiz.");
+        System.out.println("     7-Sumar los elementos de una fila.");
+        System.out.println("     8-Sumar los elementos de una columna.");
+        elecMenu = sc.nextInt();
+        return elecMenu;
+    }
+
+    public static void CargaMatriz(int[][] enteros) {
+        Scanner sc = new Scanner(System.in);
+        for (int i = 0; i < enteros.length; i++) {
+            for (int j = 0; j < enteros[i].length; j++) {
+                System.out.println("Ingrese el numero de la fila " + i + " y la columna " + j);
+                enteros[i][j] = sc.nextInt();
+            }
+        }
+    }
+
+    public static void MostrarMatriz(int[][] enteros, int fila, int colum) {
+        for (int i = 0; i < fila; i++) {
+            for (int j = 0; j < colum; j++) {
+                System.out.print(enteros[i][j] + " ");
+            }
+            System.out.println("");
+        }
+    }
+
+    public static void ProductoEscalar(int[][] enteros, int multi) {
+        for (int i = 0; i < enteros.length; i++) {
+            for (int j = 0; j < enteros[i].length; j++) {
+                enteros[i][j] = enteros[i][j] * multi;
+            }
+        }
+    }
+
+}
