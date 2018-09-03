@@ -1,0 +1,26 @@
+public static void main (String [] args){
+        Scanner sc = new Scanner (System.in);
+        char[][] caracM = new char [10][15];
+        char[] carac = new char[150];
+        CargaMatriz(caracM,carac);
+        MostrarMatriz(caracM,3,5);
+    }
+    public static void CargaMatriz(char[][] caracM,char[] carac){
+        int x = 0;
+        for (int i = 0; i < 10; i++) {
+            for (int j = 0; j < 15; j++) {
+                caracM [i][j] = carac[x];
+                x++;
+            }
+        }
+    }
+    public static void MostrarMatriz(char[][]caracM,int fila,int colum){
+        for (int i = 0; i < fila; i++) {
+            for (int j = 0; j < colum; j++) {
+                System.out.print(caracM[i][j] + "    ");
+            }
+            System.out.println("");
+        }
+    }
+    
+}
