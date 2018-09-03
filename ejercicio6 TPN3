@@ -1,0 +1,14 @@
+public static void main(String[] args){
+        int[][] enteros = {{1,2,3,4},{5,6,7,8},{9,10,11,12},{13,14,15,16}};
+        
+        for (int n = 0; n < enteros.length; n++) {
+            System.out.println(enteros[0][n]+" ");
+        }
+        for (int a = 1; a < enteros[0].length; a++) {
+            System.out.println(enteros[a][3]);
+        }
+        for (int z = enteros.length; z > 0; z--) {
+            System.out.println(enteros[enteros[0].length-1][z]);
+        }
+    }
+}
