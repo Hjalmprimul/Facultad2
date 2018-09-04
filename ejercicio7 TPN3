@@ -1,9 +1,10 @@
-public static void main (String[] args){
-        Scanner sc = new Scanner (System.in);
-        int[][] matriz = new int [3][3];
-        CargarMatriz(matriz,3,3);
-        
+public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int[][] matriz = new int[3][3];
+        CargarMatriz(matriz, 3, 3);
+
     }
+
     public static void CargarMatriz(int[][] matriz, int fila, int colum) {
         Scanner sc = new Scanner(System.in);
         for (int i = 0; i < fila; i++) {
@@ -12,42 +13,67 @@ public static void main (String[] args){
                 matriz[i][j] = sc.nextInt();
             }
         }
+        MostrarMatriz(matriz, 3, 3);
+        System.out.println("La matriz es MAGICA: " + EsMagicoooo(matriz, 3));
     }
-    public static int SumaColum (int[][] matriz,int colum){
+
+    public static void MostrarMatriz(int[][] enteros, int fila, int colum) {
+        for (int i = 0; i < fila; i++) {
+            for (int j = 0; j < colum; j++) {
+                System.out.print(enteros[i][j] + " ");
+            }
+            System.out.println("");
+        }
+    }
+
+    public static int SumaColum(int[][] matriz, int colum) {
         int cont = 0;
         for (int i = 0; i < matriz.length; i++) {
             cont = cont + matriz[i][colum];
         }
         return cont;
     }
-    public static int SumaFila (int[][] matriz,int fila){
+
+    public static int SumaFila(int[][] matriz, int fila) {
         int cont = 0;
         for (int i = 0; i < matriz.length; i++) {
             cont = cont + matriz[fila][i];
         }
         return cont;
     }
-    public static int Suma1diagonal (int [][] matriz){
+
+    public static int Suma1diagonal(int[][] matriz) {
         int cont = 0;
-        for (int i = 0,j = 0; i < matriz.length; i++,j++) {
+        for (int i = 0, j = 0; i < matriz.length; i++, j++) {
             cont = cont + matriz[i][j];
         }
         return cont;
     }
-    public static int Suma2diagonal (int[][] matriz){
+
+    public static int Suma2diagonal(int[][] matriz) {
         int cont = 0;
-        for (int i = 0,j = matriz.length; i < matriz.length; i++,j--) {
-            cont = cont + matriz[i][j];
+        for (int i = 0, j = matriz.length; i < matriz.length; i++, j--) {
+            cont = cont + matriz[i][j-1];
         }
         return cont;
     }
-    public static boolean EsMagicoooo (int[][] matriz){
+
+    public static boolean EsMagicoooo(int[][] matriz, int fila) {
         boolean magic = false;
-        int S1Diagonal=Suma1diagonl(matriz),S2Diagonal=Suma2diagonal(matriz),
-        if(Suma1diagonal(matriz)==Suma2diagonal(matriz)){
-            for (int i = 0; i < 3; i++) {
-                
-            }
+        int i = 0;
+        boolean flag = false;
+        int S1Diagonal = Suma1diagonal(matriz), S2Diagonal = Suma2diagonal(matriz);
+        if (S2Diagonal == S1Diagonal) {
+            do {
+                if (SumaFila(matriz, i) == S1Diagonal && SumaColum(matriz, i) == S1Diagonal) {
+                    i++;
+                    if (i == matriz.length-1) {
+                        magic = true;
+                    }
+                } else {
+                    flag = true;
+                }
+            } while (!flag && i != matriz.length);
         }
         return magic;
     }
