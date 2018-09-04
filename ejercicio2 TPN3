@@ -1,4 +1,4 @@
-public static void main(String[] args) {
+ public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         int[][] enteros;
         int fila, colum;
@@ -71,7 +71,6 @@ public static void main(String[] args) {
            
         } while (!bandera);
     }
-
     public static int menu() {
         Scanner sc = new Scanner(System.in);
         int elecMenu;
@@ -179,4 +178,5 @@ public static void main(String[] args) {
         }
         return suma;
     }
-}
+} 
+
