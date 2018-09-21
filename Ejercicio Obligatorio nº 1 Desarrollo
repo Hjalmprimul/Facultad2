@@ -1,0 +1,238 @@
+public class Arbol {
+    private String nombre;
+    private int altura;
+    private int profRaices;
+    private boolean frutos;
+    private int tempMinima;
+// Constructores
+    public Arbol(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public Arbol(String nom, int alt, int pRaices, boolean fr, int tMin) {
+        this.nombre = nom;
+        this.altura = alt;
+        this.profRaices = pRaices;
+        this.frutos = fr;
+        this.tempMinima = tMin;
+    }
+// Seteadores
+    public void setAltura(int alt) {
+        this.altura = alt;
+    }
+
+    public void setProfRaices(int pRaices) {
+        this.profRaices = pRaices;
+    }
+
+    public void setFrutos(boolean fr) {
+        this.frutos = fr;
+    }
+
+    public void setTempMinima(int tMin) {
+        this.tempMinima = tMin;
+    }
+// Observadores
+    public String getNombre() {
+        return nombre;
+    }
+
+    public int getAltura() {
+        return altura;
+    }
+
+    public int getProfRaices() {
+        return profRaices;
+    }
+
+    public boolean getFrutos() {
+        return frutos;
+    }
+
+    public int getTempMinima() {
+        return tempMinima;
+    }
+    // Propios del Tipo
+    @Override
+    public String toString() {
+        return "Arbol{" + "nombre= " + nombre + ", altura= " + altura + ", profRaices= " + profRaices + ", frutos= " + frutos + ", tempMinima= " + tempMinima + '}';
+    }
+    
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Arbol other = (Arbol) obj;
+        if (this.altura != other.altura) {
+            return false;
+        }
+        if (this.profRaices != other.profRaices) {
+            return false;
+        }
+        if (this.frutos != other.frutos) {
+            return false;
+        }
+        if (this.tempMinima != other.tempMinima) {
+            return false;
+        }
+        if (!Objects.equals(this.nombre, other.nombre)) {
+            return false;
+        }
+        return true;
+    }
+    
+}
+
+
+
+
+==============6==============================6==============================6=============================6=======================6===
+
+ public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        boolean flag = false;
+        Arbol[] arboles;
+        System.out.println("Ingrese la cantidad maxima de arboles");
+        arboles = new Arbol [sc.nextInt()];
+        int proxPcarg = 0;
+        
+        do{
+        switch (menu()) {
+            case 0:
+                // Termina el do-while para finalizar el programa
+                flag = true;
+                break;
+                
+            case 1:
+                // Carga la cantidad de arboles que quieras siempre quieras
+                int carg;
+                System.out.println("Ingrese la cantidad de Árboles a cargar");
+                carg = sc.nextInt();
+                
+                // if por si la cantidad de arboles a cargar es superior al largo del arreglo
+                if((proxPcarg + carg)<arboles.length){
+                cargaDatos(arboles,proxPcarg,carg);
+                }
+                else{
+                    System.out.println("Usted a agregado un numero que supera la cantidad de arboles que puede cargar");
+                    System.out.println("Porfavor vuelva a ingresar la cantidad de arboles a cargar");
+                    System.out.println("tiene que ser menor o igual que "+(arboles.length-proxPcarg));
+                    carg = sc.nextInt();
+                cargaDatos(arboles,proxPcarg,carg);    
+                }
+                proxPcarg = proxPcarg + carg;
+                break;
+                
+            case 2:
+                // Lista los arboles que son superiores a 10m
+                System.out.println("Estos son los arboles que superan los 10m de altura");
+                listarArboles(arboles,proxPcarg);
+                break;
+                
+            case 3:
+                // Cuenta la cantidad de arboles que no resisten menos que 0ºC de temperatura
+                System.out.println("Esta es la cantidad de arboles que no resisten menos de 0ºC de Temperatura: "+contarArboles(arboles,proxPcarg));
+                break;
+                
+            case 4:
+                // Lista los nombres de los arboles que son frutales
+                System.out.println("Estos son todos los arboles que son Frutales");
+                mostrarArboles(arboles,proxPcarg);
+                break;
+                
+            default:
+                // Default por si el numero de opcion seleccionado no esta dentro del menu
+                System.out.println("Selecciono una opcion fuera del menu");
+                System.out.println("Vuelva a Elegir una opcion");
+                break;
+        }
+        }while(!flag);
+    }
+
+    public static int menu() {
+        Scanner sc = new Scanner(System.in);
+        int elecMenu;
+
+        System.out.println("Menu:");
+        System.out.println("     0- Salir.");
+        // Termina el TestVivero
+        System.out.println("     1- Cargar Datos.");
+        // Carga los arboles siempre que quieras.
+        System.out.println("     2- Listar Árboles.");
+        // Lista los Arboles que superan los 10m de altura
+        System.out.println("     3- Contar Árboles.");
+        // Cuenta la cantidad de arboles que no resisten menor temperatura que 0ºC
+        System.out.println("     4- Mostrar Árboles.");
+        // Muestra el nombre de los arboles que son frutales
+        elecMenu = sc.nextInt();
+
+        return elecMenu;
+    }
+
+    public static void cargaDatos     (Arbol[] arboles, int proxPcarg, int carg) {
+        Scanner sc = new Scanner(System.in);
+        String flag = null;
+        
+        for (int i = proxPcarg; i < carg+proxPcarg; i++) {
+            
+            System.out.println("Ingrese el Nombre del arbol nº "+i);
+            arboles[i] = new Arbol(sc.next());
+            
+            System.out.println("Ingrese la Altura del arbol nº "+i);
+            arboles[i].setAltura(sc.nextInt());
+            
+            System.out.println("Ingrese la profundidad de las raices nº "+i);
+            arboles[i].setProfRaices(sc.nextInt());
+            
+            System.out.println("¿El arbol nº "+i+" tiene frutos? si/no");
+            flag = sc.next();
+            
+            // Switch para facilitarle la utilizacion al usuario
+            switch (flag) {
+                case "si":
+                    arboles[i].setFrutos(true);
+                    break;
+                case "no":
+                    arboles[i].setFrutos(false);
+                    break;
+            }
+            
+            System.out.println("Ingrese la Temperatura minima que puede resistir el arbol nº "+i);
+            arboles[i].setTempMinima(sc.nextInt());
+        }
+    }
+    public static void listarArboles  (Arbol[] arboles, int proxPcarg){
+        // Lista todos los arboles con altura superio a 10m, utilizando el metodo .getAltura() de la clase Arbol.
+        for (int i = 0; i < proxPcarg; i++) {
+            if (arboles[i].getAltura()>10) {
+                System.out.println(arboles[i].toString());
+            }
+        }
+    }
+    public static int  contarArboles  (Arbol[] arboles, int proxPcarg){
+        // Cuenta la cantidad de arboles que no resisten temperaturas bajo los 0ºC, Utilizando el metodo .getTempMinima() de la clase Arbol
+        int cont = 0;
+        for (int i = 0; i < proxPcarg; i++) {
+            if(arboles[i].getTempMinima()<0)
+                cont++;
+        }
+        return cont;
+    }
+    public static void mostrarArboles (Arbol[] arboles, int proxPcarg){
+        // Muestra los nombres de los arboles que son frutales, Utilizando los metodos .getFrutos() y .getNombre() de la clase Arbol
+        System.out.println("Estos arboles son frutales:");
+        for (int i = 0; i < proxPcarg; i++) {
+            if (arboles[i].getFrutos()) {
+                System.out.println(arboles[i].getNombre());
+            }
+        }
+    }
+
+}
