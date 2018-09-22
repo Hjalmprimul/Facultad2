@@ -117,11 +117,11 @@ public class Arbol {
                 carg = sc.nextInt();
                 
                 // if por si la cantidad de arboles a cargar es superior al largo del arreglo
-                if((proxPcarg + carg)<arboles.length){
+                if(carg<0||(proxPcarg + carg)<arboles.length){
                 cargaDatos(arboles,proxPcarg,carg);
                 }
                 else{
-                    System.out.println("Usted a agregado un numero que supera la cantidad de arboles que puede cargar");
+                    System.out.println("Usted a agregado un numero negativo o que supera la cantidad de arboles que puede cargar");
                     System.out.println("Porfavor vuelva a ingresar la cantidad de arboles a cargar");
                     System.out.println("tiene que ser menor o igual que "+(arboles.length-proxPcarg));
                     carg = sc.nextInt();
