@@ -1,0 +1,303 @@
+package aguirrelucasezequiel;
+
+import java.util.Scanner;
+
+/**
+ *
+ * @author usuario
+ */
+public class TestVivero {
+
+    /**
+     * @param args the command line arguments
+     */
+    @SuppressWarnings("empty-statement")
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        boolean flag = false;
+        Arbol[] arboles;
+        System.out.println("Ingrese la cantidad maxima de arboles");
+        arboles = new Arbol[sc.nextInt()];
+        int posAcarg = 0;
+        boolean ordenado = false;
+
+        do {
+            switch (menu()) {
+                case 0:
+                    // Termina el do-while para finalizar el programa
+                    flag = true;
+                    break;
+
+                case 1:
+                    // Carga de a 1 arbol a la vez
+                    if (posAcarg == arboles.length) {
+                        System.out.println("El arreglo ya esta lleno");
+                    } else {
+                        if (cargaDatos(arboles, posAcarg)) {
+                            posAcarg++;
+                        }
+                    }
+                    break;
+
+                case 2:
+                    // Lista los arboles que son superiores a 10m
+                    System.out.println("Estos son los arboles que superan los 10m de altura");
+                    listarArboles(arboles, posAcarg);
+                    break;
+
+                case 3:
+                    // Cuenta la cantidad de arboles que no resisten menos que 0ºC de temperatura
+                    System.out.println("Esta es la cantidad de arboles que no resisten menos de 0ºC de Temperatura: " + contarArboles(arboles, posAcarg));
+                    break;
+
+                case 4:
+                    // Lista los nombres de los arboles que son frutales
+                    System.out.println("Estos son todos los arboles que son Frutales");
+                    mostrarArboles(arboles, posAcarg);
+                    break;
+
+                default:
+                    // Default por si el numero de opcion seleccionado no esta dentro del menu
+                    System.out.println("Selecciono una opcion fuera del menu");
+                    System.out.println("Vuelva a Elegir una opcion");
+                    break;
+
+                // Opciones de la segunda entrega:
+                case 5:
+                    // Muestra todos los arboles del arreglo
+                    mostrar(arboles, posAcarg);
+                    break;
+                case 6:
+                    // Ordena el arreglo
+                    boolean band = false;
+                    do {
+                        switch (menuOrdenar()) {
+                            case 0:
+                                band = true;
+                                break;
+                            case 1:
+                                // Burbuja Mejorado
+                                burbujaM(arboles);
+                                ordenado = true;
+                                break;
+                            case 2:
+                                // Seleccion
+                                seleccion(arboles);
+                                ordenado = true;
+                                break;
+                            case 3:
+                                // insercion
+                                insercion(arboles);
+                                ordenado = true;
+                                break;
+                            default:
+                                // Default por si el numero de opcion seleccionado no esta dentro del menu
+                                System.out.println("Selecciono una opcion fuera del menu");
+                                System.out.println("Vuelva a Elegir una opcion");
+                                break;
+
+                        }
+                    } while (!band);
+                    break;
+                case 7:
+                    // Ingresa un numero X, y compara con la altura de los arboles, cuanta la cantidad que lo superan
+                    int n;
+                    System.out.println("Ingres el numero a comparar con las raices de los arboles");
+                    n = sc.nextInt();
+                    System.out.println("La cantidad de los arboles cuyas raices superan los "+n+" metros de profundidad son: "+contXraices(arboles,n,posAcarg-1));
+                    break;
+                case 8:
+                    // Busqueda de un arbol en el arreglo
+                    if(ordenado){
+                        String aux;
+                        System.out.println("Ingrese el nombre del arbol a buscar");
+                        aux = sc.next();
+                        if(busquedaBin(arboles,aux)!= -1){
+                            System.out.println("El arbol fue encontrado en la posicion "+busquedaBin(arboles,aux));
+                        } else{
+                            System.out.println("El arbol no se encuentra en el arreglo");
+                        }
+                    } else{
+                        System.out.println("El arreglo tiene que ser ordenado previamente para utilizar esta opcion");
+                    }
+                    
+            }
+        } while (!flag);
+    }
+
+    public static int menu() {
+        Scanner sc = new Scanner(System.in);
+        int elecMenu;
+
+        System.out.println("Menu:");
+        System.out.println("     0- Salir.");
+        // Termina el TestVivero
+        System.out.println("     1- Cargar 1 Arbol.");
+        // Carga los arboles siempre que quieras.
+        System.out.println("     2- Listar Árboles que superen los 10 metros de altura.");
+        // Lista los Arboles que superan los 10m de altura
+        System.out.println("     3- Contar la cantidad de Árboles que no resisten temperaturas menores a 0ºC.");
+        // Cuenta la cantidad de arboles que no resisten menor temperatura que 0ºC
+        System.out.println("     4- Mostrar Árboles Frutales.");
+        // Muestra el nombre de los arboles que son frutales
+        
+        // Opciones de la segunda entrega:
+        System.out.println("     5- Mostrar todos los arboles");
+        // Muestra todos los arboles del arreglo
+        System.out.println("     6- Ordenar");
+        // Ordena el arreglo por nombre
+        System.out.println("     7- Contar la cantidad de arboles que superan X metros de altura");
+        // Ingresa un numero X, y compara con la altura de los arboles, cuanta la cantidad que lo superan
+        System.out.println("     8- Ordenar Arreglo en base a la altura de los arboles");
+        // Ordena el arreglo con el metodo 
+        elecMenu = sc.nextInt();
+
+        return elecMenu;
+    }
+// Metodos de la primer entrega:
+
+    public static boolean cargaDatos(Arbol[] arboles, int posAcarg) {
+        Scanner sc = new Scanner(System.in);
+        String flag = null;
+        String nom = null;
+        boolean bandera = false;
+        boolean cargado = false;
+
+        System.out.println("Ingrese el Nombre del arbol nº " + posAcarg);
+        nom = sc.next();
+        if (verfNom(arboles, nom, posAcarg)) {
+            cargado = true;
+            arboles[posAcarg] = new Arbol(nom);
+            System.out.println("Ingrese la Altura del arbol nº " + posAcarg);
+            arboles[posAcarg].setAltura(sc.nextInt());
+
+            System.out.println("Ingrese la profundidad de las raices nº " + posAcarg);
+            arboles[posAcarg].setProfRaices(sc.nextInt());
+
+            System.out.println("¿El arbol nº " + posAcarg + " tiene frutos? si/no");
+            flag = sc.next().toLowerCase();
+
+            // Switch para facilitarle la utilizacion al usuario
+            do {
+                switch (flag) {
+                    case "si":
+                        arboles[posAcarg].setFrutos(true);
+                        bandera = true;
+                        break;
+                    case "no":
+                        arboles[posAcarg].setFrutos(false);
+                        bandera = true;
+                        break;
+                    default:
+                        System.out.println("Usted no eligio entre si o no");
+                        System.out.println("Porfavor vuelva a elegir.");
+                        flag = sc.next().toLowerCase();
+                        break;
+                }
+            } while (!bandera);
+
+            System.out.println("Ingrese la Temperatura minima que puede resistir el arbol nº " + posAcarg);
+            arboles[posAcarg].setTempMinima(sc.nextInt());
+        } else {
+            cargado = false;
+            System.out.println("El Arbol ya esta cargado en el arreglo.");
+        }
+        return cargado;
+    }
+
+    public static boolean verfNom(Arbol[] arboles, String nom, int UltPosCarg) {
+        // Modulo que verifica si el nombre ya esta en el arreglo
+        boolean verfNom = true;
+        int i = 0;
+        while (i <= UltPosCarg - 1 && verfNom) {
+            if (nom.equals(arboles[i].getNombre())) {
+                verfNom = false;
+            }
+            i++;
+        }
+        return verfNom;
+    }
+
+    public static void listarArboles(Arbol[] arboles, int proxPcarg) {
+        // Lista todos los arboles con altura superio a 10m, utilizando el metodo .getAltura() de la clase Arbol.
+        for (int i = 0; i < proxPcarg; i++) {
+            if (arboles[i].getAltura() > 10) {
+                System.out.println(arboles[i].toString());
+            }
+        }
+    }
+
+    public static int contarArboles(Arbol[] arboles, int proxPcarg) {
+        // Cuenta la cantidad de arboles que no resisten temperaturas bajo los 0ºC, Utilizando el metodo .getTempMinima() de la clase Arbol
+        int cont = 0;
+        for (int i = 0; i < proxPcarg; i++) {
+            if (arboles[i].getTempMinima() < 0) {
+                cont++;
+            }
+        }
+        return cont;
+    }
+
+    public static void mostrarArboles(Arbol[] arboles, int proxPcarg) {
+        // Muestra los nombres de los arboles que son frutales, Utilizando los metodos .getFrutos() y .getNombre() de la clase Arbol
+        for (int i = 0; i < proxPcarg; i++) {
+            if (arboles[i].getFrutos()) {
+                System.out.println(arboles[i].getNombre());
+            }
+        }
+    }
+
+    // Metodos de la segunda entrega:
+    
+    public static void mostrar(Arbol[] arboles, int posAcarg) {
+        for (int i = 0; i < posAcarg; i++) {
+            System.out.println(arboles[i].toString());
+        }
+    }
+
+    public static int menuOrdenar() {
+        Scanner sc = new Scanner(System.in);
+        int elecM;
+        System.out.println("     0- Salir de Ordenar.");
+        // Termina el TestVivero
+        System.out.println("     1- Ordenar con Burbuja Mejorado.");
+        // Ordena con Burbuja Mejorado.
+        System.out.println("     2- Ordenar con Seleccion.");
+        // Ordena con Seleccion
+        System.out.println("     3- Ordenar con Insercion.");
+        // Ordena con Insercion
+        elecM = sc.nextInt();
+        return elecM;
+    }
+    
+    public static void burbujaM (Arbol[] arboles){
+        
+    }
+    
+    public static void seleccion (Arbol[] arboles){
+        
+    }
+    
+    public static void insercion (Arbol[] arboles){
+        
+    }
+    
+    public static int contXraices (Arbol[] arboles, int n, int posAcarg){
+        int cont;
+        if(posAcarg < 0){
+            cont = 0;
+        } else{
+            if(n < arboles[posAcarg].getProfRaices()){
+                cont = 1 + contXraices(arboles,n,posAcarg-1);
+            } else{
+                cont = contXraices(arboles,n,posAcarg-1);
+            }
+        }
+        return cont;
+    }
+    
+    public static int busquedaBin (Arbol[] arboles, String aux){
+        
+    }
+
+}
