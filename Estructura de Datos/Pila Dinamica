@@ -1,0 +1,92 @@
+public class Nodo {
+    
+    private Object elem;
+    private Nodo enlace;
+
+    public Nodo(Object elem, Nodo enlace) {
+        this.elem = elem;
+        this.enlace = enlace;
+    }
+
+    public Object getElem() {
+        return elem;
+    }
+
+    public Nodo getEnlace() {
+        return enlace;
+    }
+
+    public void setElem(Object elem) {
+        this.elem = elem;
+    }
+
+    public void setEnlace(Nodo enlace) {
+        this.enlace = enlace;
+    }
+    
+    
+}
+
+///////////////////////////////////////\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
+public class Pila {
+
+    private Nodo tope;
+
+    public boolean apilar(Object elem) {
+        Nodo nuevo = new Nodo(elem, this.tope);
+        this.tope = nuevo;
+        return true;
+    }
+
+    public boolean desapilar() {
+        boolean bandera = false;
+        if (tope != null) {
+            tope = this.tope.getEnlace();
+            bandera = true;
+        }
+        return bandera;
+    }
+
+    public Object obtenerTope(){
+        return this.tope.getElem();
+    }
+    
+    public boolean esVacia (){
+        boolean bandera = false;
+        if(this.tope == null){
+            bandera = true;
+        }
+        return bandera;
+    }
+    
+    public void vaciar (){
+        this.tope = null;
+    }
+    
+    public Pila clone (){
+        Nodo clon=new Nodo(this.tope.getElem(),this.tope.getEnlace());
+        
+        
+    }
+    
+    public String toString() {
+        String s = "";
+
+        if (this.tope == null) {
+            s = "Pila Vacia";
+        } else {
+            Nodo aux = this.tope;
+
+            while (aux != null) {
+                s += aux.getElem().toString();
+                aux = aux.getEnlace();
+                if (aux != null) {
+                    s += ",";
+                }
+
+            }
+        }
+        return s;
+    }
+}
