@@ -1,0 +1,110 @@
+public class Cola {
+
+    private Object[] cinta;
+    private int tam;
+    private int frente;
+    private int fin;
+
+    public Cola() {
+        tam = 12;
+        frente = 0;
+        fin = 0;
+        cinta = new Object[tam];
+    }
+
+    public boolean poner(Object elem) {
+        boolean bandera = false;
+        if (frente != (fin + 1) % tam) {
+            cinta[fin] = elem;
+            fin = (fin + 1) % tam;
+            bandera = true;
+        }
+        return bandera;
+    }
+
+    public boolean sacar() {
+        boolean bandera = false;
+        if (frente != fin) {
+            cinta[frente] = null;
+            frente = (frente + 1) % tam;
+            bandera = true;
+        }
+        return bandera;
+    }
+
+    public Object obtenerFrente() {
+        return cinta[frente];
+    }
+
+    public boolean esVacia() {
+        return frente == fin;
+    }
+
+    public void vaciar() {
+        for (int i = frente; i % tam < fin; i++) {
+            cinta[i] = null;
+        }
+        frente = fin;
+    }
+
+    public Cola clone() {
+        Cola clon = new Cola();
+        clon.cinta = this.cinta;
+        clon.frente = this.frente;
+        clon.fin = this.fin;
+        return clon;
+    }
+
+    public String toString() {
+        String aux = "";
+        for (int i = frente; i % tam != fin; i = (i + 1) % tam) {
+            aux += cinta[i].toString();
+            if (i % tam + 1 != fin) {
+                aux += ", ";
+            } else {
+                aux += ".";
+            }
+        }
+        return aux;
+    }
+}
+
+////////////////////////////////////////////////\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
+public class TestCola {
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) {
+        Scanner sc = new Scanner (System.in);
+        
+        Cola culote = new Cola();
+        culote.poner("1");
+        culote.poner("2");
+        culote.poner("3");
+        culote.poner("4");
+        for (int i = 5; i <= 12; i++) {
+            culote.poner(i);
+        }
+       
+         System.out.println(culote.toString());
+        culote.sacar();
+        System.out.println(culote.toString());
+        culote.sacar();
+        System.out.println(culote.toString());
+        culote.sacar();
+        System.out.println(culote.toString());
+        culote.poner("gg");
+        culote.poner("ff at 15min");
+        
+        //System.out.println(culote.esVacia());
+        //System.out.println(culote.toString());
+        Cola culote2 = culote.clone();
+        culote.vaciar();
+        System.out.println(culote.esVacia());
+        System.out.println(culote2.esVacia());
+        System.out.println(culote2.toString()); 
+    }
+    
+}
