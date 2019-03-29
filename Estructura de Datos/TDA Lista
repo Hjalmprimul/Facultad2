@@ -105,14 +105,16 @@ public class Lista {
         }
         return cadenita;
     }
-    //Incompleto Xdxdxddd
+    
     public Lista clone(){
         Lista clon=new Lista();
         Nodo aux=this.cabecera;
         for (int i = 1; i <= this.longitud(); i++) {
-            
+            Nodo copia=new Nodo(aux.getElem(),aux.getEnlace());
+            aux=aux.getEnlace();
         }
         clon.cabecera=this.cabecera;
+        return clon;
     }
     
 }
