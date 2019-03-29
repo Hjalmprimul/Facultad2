@@ -1,0 +1,118 @@
+
+package lineales.dinamicas;
+
+
+public class Lista {
+     
+    private Nodo cabecera;
+    
+    public Lista(){
+        this.cabecera=null;
+    }
+    
+    public boolean insertar(Object elem, int pos){
+        boolean flag = false;
+        
+        if( pos > 0 && pos <= this.longitud() +1){
+            if (pos == 1){
+               // Nodo nuevo = new Nodo (elem,this.cabecera.getEnlace());
+                this.cabecera = new Nodo(elem,this.cabecera);
+            } else{
+                int i=1;
+                Nodo aux=this.cabecera;
+                while (i<pos-1){
+                    aux=aux.getEnlace();
+                    i++;
+                }
+                Nodo nuevo= new Nodo(elem,aux.getEnlace());
+                aux.setEnlace(nuevo);
+            }
+            flag = true;
+        }
+        return flag;
+    }
+    
+    public boolean eliminar(int posicion){ //
+        boolean bandera=false;
+        if (this.cabecera!=null){
+            bandera=true;
+            if (posicion==1){
+                this.cabecera=this.cabecera.getEnlace();
+            } else{
+                Nodo aux=this.cabecera;
+                for (int i = 1; i < posicion-1; i++) {
+                    aux=aux.getEnlace();
+                }
+                aux.setEnlace(aux.getEnlace().getEnlace());
+            }
+        }
+        return bandera;
+    }
+    
+    //Pre-condicion: La posicion es valida.
+    public Object recuperar(int posicion){ //
+        Nodo aux=this.cabecera;
+        for (int i = 0; i < posicion-1; i++) {
+            aux=aux.getEnlace();
+        }
+        return aux.getElem();
+    }
+    
+    public void vaciar(){ //
+        this.cabecera=null;
+    }
+    
+    public boolean esVacia(){ //
+        return (this.cabecera==null);
+    }
+    
+    public int localizar(Object obj){ //
+        int i=1;
+        Nodo aux=this.cabecera;
+        while(i<=this.longitud()&&aux.getElem()!=obj){
+            aux=aux.getEnlace();
+            i++;
+        }
+        if (aux==null){
+            i=-1;
+        }
+        return i;
+    }
+    
+    public int longitud(){ 
+        int cont = 0;
+        if (this.cabecera != null){
+        Nodo aux = this.cabecera;
+        while(aux != null){
+            cont++;
+            aux = aux.getEnlace();
+        }
+    }
+        return cont;
+    }
+    
+    public String toString(){
+        String cadenita="";
+        
+        if (this.cabecera==null){
+        cadenita="Lista vacia";    
+        } else{
+            Nodo aux=this.cabecera;
+            while(aux!=null){
+                cadenita+=aux.getElem().toString()+" ";
+                aux=aux.getEnlace();
+            }
+        }
+        return cadenita;
+    }
+    //Incompleto Xdxdxddd
+    public Lista clone(){
+        Lista clon=new Lista();
+        Nodo aux=this.cabecera;
+        for (int i = 1; i <= this.longitud(); i++) {
+            
+        }
+        clon.cabecera=this.cabecera;
+    }
+    
+}
