@@ -1,0 +1,108 @@
+package jerárquicas;
+
+import lineales.dinamicas.*;
+
+public class ArbolBin {
+
+    private NodoArbol raiz;
+
+    public ArbolBin() {
+        this.raiz = null;
+    }
+
+    public boolean insertar(Object elem, Object padre, char pos) {
+        boolean banderita = false;
+        if (padre == null) {
+            NodoArbol nodito = new NodoArbol();
+            nodito.setElem(elem);
+            this.raiz = nodito;
+            banderita = true;
+        } else {
+            NodoArbol nodito = obtenerNodo(this.raiz, padre);
+            if (pos == 'I' & nodito.getIzquierdo() == null) {
+                NodoArbol nein = new NodoArbol();
+                nein.setElem(elem);
+                nodito.setIzquierdo(nein);
+                banderita = true;
+            }
+            if (pos == 'D' & nodito.getDerecho() == null) {
+                NodoArbol nein2 = new NodoArbol();
+                nein2.setElem(elem);
+                nodito.setDerecho(nein2);
+                banderita = true;
+            }
+        }
+        return banderita;
+    }
+
+    public boolean esVacio() {
+        return (this.raiz == null);
+    }
+
+    public Object padre(Object elem) {
+
+    }
+
+    public int altura() {
+
+    }
+
+    public int nivel(Object elem) {
+
+    }
+
+    public void vaciar() {
+        this.raiz = null;
+    }
+
+    public ArbolBin clonar() {
+
+    }
+
+    public String toString() {
+
+    }
+
+    public Lista listarPreorden() {
+        Lista listita = new Lista();
+        auxPreorden(listita,1 ,this.raiz);
+        return listita;
+    }
+
+    public Lista listarPosorden() {
+
+    }
+
+    public Lista listarInorden() {
+
+    }
+
+    public Lista listarPorNiveles() {
+
+    }
+
+    private void auxPreorden(Lista l, int pos, NodoArbol n) {
+
+        if (n != null) {
+            l.insertar(n.getElem(), pos);
+            pos++;
+            auxPreorden(l, pos, n.getDerecho());
+            auxPreorden(l, pos ,n.getIzquierdo());
+        }
+    }
+
+    private NodoArbol obtenerNodo(NodoArbol x, Object nWord) {
+        NodoArbol nodito = new NodoArbol();
+        if (x != null) {
+            if (x.getElem() == nWord) {
+                nodito = x;
+            } else {
+                nodito = obtenerNodo(x.getIzquierdo(), nWord);
+                if (nodito == null) {
+                    nodito = obtenerNodo(x.getDerecho(), nWord);
+                } 
+            }
+        }
+        return nodito;
+    }
+}
